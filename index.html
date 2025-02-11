@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Pestaña</title>
+</head>
+<body>
+    <main class="contenido-juego" id="#">
+        <header>
+            <h1 class="title-juego">JUEGO DE PALABRAS</h1>
+        </header> 
+
+            <!-- Boton para añadir -->
+        <button class="boton-añadir-participante">AÑADIR PARTICIPANTES</button>
+            <!-- Div vacio para colocar los nombres de los participantes -->
+        <div class="nombres-participantes"></div>
+            <!-- Boton iniciar juego -->
+        <button class="boton-iniciar-juego">INICIAR JUEGO</button>
+            <!-- Aque se deberia mostrar el nombre del jugador actual (en el span)-->
+        <p class="indicador-turno" id="#">Turno de: <span class="jugador-actual" id="current-player"></span></p>
+            <!-- Letra aleatoria -->
+        <span class="letra-aleatoria">G</span>
+            <!-- El temporizador (span) -->
+        <p class="tiempo-restante" id="tiempo-restante">Tiempo restante: <span id="time">60</span> segundos</p>
+            <!-- Input para agregar palabra -->
+        <input class="ingresar-palabra" type="text" placeholder="Escribe una palabra">
+            <!-- Deberia mostrar en lista (ul) las palabras agregadas -->
+        <div class="palabras-agregadas">
+            <p>Palabras agregadas:</p>
+            <ul class="lista-palabras" id="word-list"></ul>
+        </div>
+            <!-- Se deberia mostar en (span) numero de palabras ingresadas -->
+        <div class="total-palabras">
+            <p>Total de palabras agregadas: <span id="total-words">0</span></p>
+        </div>
+            <!-- Se deberia mostrar el lista (ul) el rankin de los jugadores -->
+        <div class="ranking-jugadores">
+            <p>Ranking de jugadores</p>
+            <ul id="ranking-list"></ul>
+        </div>
+        
+    </main>
+
+</body>
+</html>
