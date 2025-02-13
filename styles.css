@@ -16,6 +16,9 @@ main{
     text-align: center;
 }
 
+ul{
+    list-style-type: circle;
+}
 .boton-añadir-participante, .boton-iniciar-juego{
     justify-content: center;
     padding: 10px;
@@ -23,6 +26,16 @@ main{
     border-radius: 15px;
     border: solid;
     background-color: #dd8909; 
+}
+
+.nombres-participantes{
+    text-align: center;
+    font-size: 2rem;
+}
+
+.indicador-turno{
+    font-size: 2rem;
+    text-align: center;
 }
 
 .indicador-turno, .tiempo-restante{
@@ -44,5 +57,6 @@ main{
 }
 
 .palabras-agregadas, .total-palabras, .ranking-jugadores{
-    margin: 30px 50px;
+    margin: 30px 0px;
+    text-align: center;
 }
