@@ -7,7 +7,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const timerSpan = document.getElementById("time");
     const wordInput = document.querySelector(".ingresar-palabra");
     const wordList = document.getElementById("word-list");
-    const totalWordsSpan = document.getElementById("total-words");
     const rankingList = document.getElementById("ranking-list");
 
     let players = [];
@@ -18,17 +17,29 @@ document.addEventListener("DOMContentLoaded", () => {
     let totalTurns = 0; // control de rondas
     let usedWords = new Set(); // Inicialización del conjunto de palabras usadas
 
-    // Agregar jugador
+   // Agregar jugador
     addPlayerBtn.addEventListener("click", () => {
-        const playerName = prompt("Ingresa el nombre del jugador:");
-        if (playerName && players.length < 4) {
+    const playerName = prompt("Ingresa el nombre del jugador:");
+
+    // Validar que el nombre no esté vacío y solo contenga letras y espacios
+    if (playerName && /^[A-Za-z\s]+$/.test(playerName)) {
+        // Verificar si el nombre ya existe
+        if (players.includes(playerName)) {
+            alert("Este nombre ya está en uso. Por favor, agrega algo para diferenciarlo (por ejemplo, un apellido o iniciales).");
+            return; // Detener la función si el nombre ya existe
+        }
+
+        if (players.length < 4) {
             players.push(playerName);
             wordCount[playerName] = 0; // Inicializa el contador de palabras
             updatePlayerList();
         } else {
             alert("Solo se permiten 4 jugadores.");
         }
-    });
+    } else {
+        alert("Nombre inválido. Solo se permiten letras y espacios.");
+    }
+});
 
     function updatePlayerList() {
         playerListContainer.innerHTML = players.map(p => `<p>${p}</p>`).join("");
@@ -45,6 +56,7 @@ document.addEventListener("DOMContentLoaded", () => {
         startTurn();
     });
 
+    // Iniciar turno
     function startTurn() {
         clearInterval(timer);
         timeLeft = 60;
@@ -62,20 +74,26 @@ document.addEventListener("DOMContentLoaded", () => {
         }, 1000);
     }
 
+    // Finalizar turno
     function endTurn() {
         clearInterval(timer);
         totalTurns++;
-
+    
+        // Mostrar mensaje de cambio de turno
+        alert(`Turno terminado. Ahora juega ${players[(currentPlayerIndex + 1) % players.length]}`);
+    
         // Finalizar el juego después de que pasen todos los turnos
         if (totalTurns >= players.length) {
-            alert("El juego ha terminado");
+            endGame();
             return;
         }
-
+    
         currentPlayerIndex = (currentPlayerIndex + 1) % players.length;
-        startTurn();
+    
+        // Esperar 2 segundos antes de iniciar el nuevo turno
+        setTimeout(startTurn, 2000);
     }
-
+    
     function getRandomLetter() {
         const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
         return letters.charAt(Math.floor(Math.random() * letters.length));
@@ -83,8 +101,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Registrar palabra
     wordInput.addEventListener("keydown", (event) => {
-        if (event.key === "Enter" && wordInput.value.trim() !== "") {
+        if (event.key === "Enter") {
+            event.preventDefault();
             const word = wordInput.value.trim().toUpperCase();
+            if (word === "") return;
             const player = players[currentPlayerIndex];
             const currentLetter = letterDisplay.textContent; // Obtener la letra actual
 
@@ -109,10 +129,9 @@ document.addEventListener("DOMContentLoaded", () => {
             wordList.appendChild(li);
 
             wordCount[player] += 1;
-            totalWordsSpan.textContent = Object.values(wordCount).reduce((a, b) => a + b, 0);
-
             updateRanking();
             wordInput.value = "";
+            
         }
     });
 
@@ -126,4 +145,15 @@ document.addEventListener("DOMContentLoaded", () => {
             rankingList.appendChild(li);
         });
     }
+    
+    function endGame() {
+        const sortedPlayers = Object.entries(wordCount).sort((a, b) => b[1] - a[1]);
+        const winner = sortedPlayers[0][0];
+        const winnerWords = sortedPlayers[0][1];
+
+        alert(`¡El juego ha terminado! El ganador es ${winner} con ${winnerWords} palabras.`);
+    }
+    
+
+    
 });
