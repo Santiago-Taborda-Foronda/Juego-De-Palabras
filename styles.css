@@ -82,7 +82,6 @@ main {
     font-size: 1rem;
     text-align: center;
 }
-
 .palabras-agregadas {
     text-align: center;
     margin: 20px 0;
@@ -92,6 +91,8 @@ main {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     width: 90%;
     max-width: 400px;
+    max-height: 200px; /* Altura máxima del contenedor */
+    overflow-y: auto; /* Habilita el scroll vertical */
 }
 
 .palabras-agregadas p {
@@ -104,11 +105,9 @@ main {
     list-style-type: none;
     padding: 0;
     display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+    flex-direction: column; /* Cambia a columna para que las palabras se apilen verticalmente */
     gap: 10px;
 }
-
 .palabras-agregadas ul li {
     background-color: #dd8909;
     color: #fff;
@@ -118,7 +117,6 @@ main {
     display: flex;
     align-items: center;
 }
-
 .total-palabras {
     text-align: center;
     margin: 20px 0;

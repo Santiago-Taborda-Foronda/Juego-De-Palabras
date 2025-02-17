@@ -106,32 +106,29 @@ document.addEventListener("DOMContentLoaded", () => {
             const word = wordInput.value.trim().toUpperCase();
             if (word === "") return;
             const player = players[currentPlayerIndex];
-            const currentLetter = letterDisplay.textContent; // Obtener la letra actual
-
-            // Validación de inicio de palabra con la letra correspondiente
+            const currentLetter = letterDisplay.textContent;
+    
             if (!word.startsWith(currentLetter)) {
                 alert(`La palabra debe comenzar con la letra ${currentLetter}`);
                 wordInput.value = "";
                 return;
             }
-
-            // Validación para evitar palabras repetidas
+    
             if (usedWords.has(word)) {
                 alert("Esta palabra ya ha sido utilizada. Intenta otra.");
                 wordInput.value = "";
                 return;
             }
-
-            usedWords.add(word); // Agregar la palabra al conjunto de palabras usadas
-
+    
+            usedWords.add(word);
+    
             const li = document.createElement("li");
             li.textContent = `${player}: ${word}`;
             wordList.appendChild(li);
-
+    
             wordCount[player] += 1;
             updateRanking();
             wordInput.value = "";
-            
         }
     });
 
